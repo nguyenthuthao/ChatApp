@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "830741481022",
+    "firebase_url": "https://chatapp-93c3b.firebaseio.com",
+    "project_id": "chatapp-93c3b",
+    "storage_bucket": "chatapp-93c3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830741481022:android:d3731097a9cd10e2",
+        "android_client_info": {
+          "package_name": "com.thaont.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830741481022-o3v0ss7tnoopj9tjusspnrc1etrrdeff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thaont.chatapp",
+            "certificate_hash": "3dd1ef1f943483b411ec33a2ff6e0fda40213a7f"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE4bwFbPs__d_RLIymH9ZP36tG8v_l4-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830741481022-ib5l7vh5psvhn0g4i1m5pmdrpij4pok6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
