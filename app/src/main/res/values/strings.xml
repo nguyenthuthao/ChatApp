@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">ChatApp</string>
+    <string name="text_login1">Welcome back,</string>
+    <string name="text_login2">Please login to continue.</string>
+    <string name="text_login3">Forgot password!</string>
+    <string name="text_login4">Dont have an account?</string>
+    <string name="text_sign_up1">Join us today!</string>
+    <string name="text_sign_up2">Please provide your basic info.</string>
+    <string name="email">Email Address</string>
+    <string name="password">Pass word</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="sign_up">Sign up here</string>
+    <string name="validateEmail">Please enter email.</string>
+    <string name="validateFormEmail">Please enter the correct email template.</string>
+    <string name="validatePassword1">Please enter password.</string>
+    <string name="validatePassword2">Must enter more than 6 characters. </string>
+    <string name="validateRePassword">Password does not match. </string>
+    <string name="validateFormLogin">Logged in successfully.</string>
+    <string name="validateFormSignUp">Sign up in successfully.</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
