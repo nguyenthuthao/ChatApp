@@ -22,18 +22,19 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView txt_Register;
 
-    //Khai bao FirebaseAuth
-    static FirebaseAuth auth;
+    //FirebaseAuth declaration.
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
-        //Khoi tao FirebaseAuth
+
+        //FirebaseAuth initialization.
         auth = FirebaseAuth.getInstance();
 
-        //Dang nhap tai khoan
+        // Sign in a user with an email address and password and check form.
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-        //Chuyen từ màn hình Login sang màn hình Register.
+        //From activity Login to activity Register.
         txt_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

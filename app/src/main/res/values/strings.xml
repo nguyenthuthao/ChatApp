@@ -17,7 +17,7 @@
     <string name="validatePassword1">Please enter password.</string>
     <string name="validatePassword2">Must enter more than 6 characters. </string>
     <string name="validateRePassword">Password does not match. </string>
-    <string name="validateFormLogin1">Logged in successfully.</string>
+    <string name="validateFormLogin1">Login with email and password correctly.</string>
     <string name="validateFormLogin2">Login is failed.</string>
     <string name="validateFormSignUp">Sign up in successfully.</string>
     <string name="userId">User</string>
@@ -25,11 +25,17 @@
     <string name="keyUser2">Username</string>
     <string name="keyUser3">ImageUrl</string>
     <string name="alertRegister1">You can not wrong this email and password.</string>
-    <string name="alertRegister2">All files are register.</string>
+    <string name="alertRegister2">All files must be registered.</string>
     <string name="alertRegister3">Password must be at least 6 characters.</string>
     <string name="Logout">LogOut</string>
+    <string name="title1">Chats</string>
+    <string name="title2">Users</string>
+    <string name="text_user">Username</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

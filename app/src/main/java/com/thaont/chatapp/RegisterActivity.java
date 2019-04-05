@@ -27,8 +27,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText editPassword;
     Button btnRegister;
 
-    //Khai bao FirebaseAuth
-    protected FirebaseAuth auth;
+    //
+    FirebaseAuth auth;
     DatabaseReference reference;
 
     @Override
@@ -37,9 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         initView();
 
-        //Khoi tao FirebaseAuth
+        //FirebaseAuth initialization.
         auth = FirebaseAuth.getInstance();
-        // Kiem tra username, email, password
+        // Check email, password.
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-    //Tao tai khoan
+    //Create a password-based account.
     private void creatCount(final String username, final String email, final String password) {
 
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

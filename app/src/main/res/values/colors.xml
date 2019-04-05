@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#E900574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorTextButton">#FFFF</color>
+    <color name="colorChatsFragment">#4DBFCF6A</color>
+    <color name="colorUsersFragment">#37FFC107</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
