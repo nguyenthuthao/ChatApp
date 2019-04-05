@@ -1,56 +1,68 @@
 package com.thaont.chatapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LoginActivity extends AppCompatActivity {
-    private EditText editEmail;
-    private EditText editPassword;
-    private Button btnLogin;
-    private TextView txtSignUp;
+    EditText editEmail;
+    EditText editPassword;
+    Button btnLogin;
+    TextView txt_Register;
 
-
+    //Khai bao FirebaseAuth
+    static FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
-        //Check form when login.
+        //Khoi tao FirebaseAuth
+        auth = FirebaseAuth.getInstance();
+
+        //Dang nhap tai khoan
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = editEmail.getText().toString().trim();
-                String password = editPassword.getText().toString().trim();
-                if (password.length()<6 || password.isEmpty()){
-                    if (email.isEmpty()){
-                        editEmail.setError(getString(R.string.validateEmail));
-                    }if (!email.matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+")) {
-
-                        editEmail.setError(getString(R.string.validateFormEmail));
-
-                    }if (password.isEmpty()){
-                        editPassword.setError(getString(R.string.validatePassword1));
-                    }if (password.length()<6){
-                        editPassword.setError(getString(R.string.validatePassword2));
-                    }
+                String edt_email = editEmail.getText().toString().trim();
+                String edt_password = editPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(edt_email) || TextUtils.isEmpty(edt_password)){
+                    Toast.makeText(LoginActivity.this, getString(R.string.validateFormLogin1), Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast toast = Toast.makeText(getApplicationContext(),getString(R.string.validateFormLogin),Toast.LENGTH_SHORT);
-                    toast.show();
-                    startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                    auth.signInWithEmailAndPassword(edt_email,edt_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }else {
+                                Toast.makeText(LoginActivity.this, getString(R.string.validateFormLogin2), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });
-        txtSignUp.setOnClickListener(new View.OnClickListener() {
+        //Chuyen từ màn hình Login sang màn hình Register.
+        txt_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,SignUpActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
@@ -58,6 +70,6 @@ public class LoginActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.edit_email);
         editPassword = findViewById(R.id.edit_password);
         btnLogin = findViewById(R.id.btnLogin);
-        txtSignUp = findViewById(R.id.txtSign_up);
+        txt_Register = findViewById(R.id.txt_Register);
     }
 }
