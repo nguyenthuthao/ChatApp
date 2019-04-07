@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.thaont.chatapp.R;
 import com.thaont.chatapp.adapter.UserAdapter;
+import com.thaont.chatapp.model.Chat;
 import com.thaont.chatapp.model.User;
 
 import java.util.ArrayList;
@@ -27,12 +28,13 @@ import java.util.List;
 public class ChatsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private UserAdapter mUsers;
+    private List<User> mUsers;
+    private UserAdapter userAdapter;
 
     FirebaseUser fUser;
     DatabaseReference reference;
 
-    private List<User> userList;
+    private List<String> userList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,14 +54,52 @@ public class ChatsFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                
+                userList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if (chat.getSender().equals(fUser.getUid())){
+                        userList.add(chat.getReceiver());
+                    }else if (chat.getReceiver().equals(fUser.getUid()))
+                        userList.add(chat.getSender());
+                }
+
+                mUsers = new ArrayList<>();
+                readChats();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        })
+        });
         return view;
+    }
+    private void readChats(){
+        reference = FirebaseDatabase.getInstance().getReference("User");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+                try {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        User user = snapshot.getValue(User.class);
+                        assert user != null;
+                        assert fUser != null;
+                        if (!user.getId().equals(fUser.getUid())){
+                            mUsers.add(user);
+                        }
+                    }
+                    userAdapter = new UserAdapter(getContext(), mUsers);
+                    recyclerView.setAdapter(userAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
