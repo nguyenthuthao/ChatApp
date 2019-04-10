@@ -50,7 +50,9 @@ public class ChatsFragment extends Fragment {
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         userList = new ArrayList<>();
 
+        // Write a message a to the Database
         reference = FirebaseDatabase.getInstance().getReference("Chats");
+        // Read from the Database
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -89,7 +91,7 @@ public class ChatsFragment extends Fragment {
                             mUsers.add(user);
                         }
                     }
-                    userAdapter = new UserAdapter(getContext(), mUsers);
+                    userAdapter = new UserAdapter(getContext(), mUsers );
                     recyclerView.setAdapter(userAdapter);
                 } catch (Exception e) {
                     e.printStackTrace();

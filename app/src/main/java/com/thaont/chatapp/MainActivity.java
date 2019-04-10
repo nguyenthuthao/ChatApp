@@ -29,6 +29,7 @@ import com.thaont.chatapp.fragments.UsersFragment;
 import com.thaont.chatapp.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView username;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
@@ -54,10 +54,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e){
             e.printStackTrace();
         }
-
-
         initView();
-
         //Get the currently signed-in user.
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -84,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-
         viewPagerAdapter.addFragment(new ChatsFragment(),getString(R.string.title1));
         viewPagerAdapter.addFragment(new UsersFragment(),getString(R.string.title2));
         viewPager.setAdapter(viewPagerAdapter);
@@ -110,8 +106,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter{
-
+        class ViewPagerAdapter extends FragmentPagerAdapter{
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
 
@@ -120,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
             this.fragments = new ArrayList<>();
             this.titles = new ArrayList<>();
         }
-
+        //Returns the fragment to display for that page
         @Override
         public Fragment getItem(int i) {
             return fragments.get(i);
         }
-
+        // Returns total number of pages
         @Override
         public int getCount() {
             return fragments.size();
@@ -135,12 +130,31 @@ public class MainActivity extends AppCompatActivity {
             fragments.add(fragment);
             titles.add(title);
         }
-
+        // Returns the page title for the top indicator
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
         }
+    }
+
+    public void status(String status){
+        reference = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 
     public void initView(){

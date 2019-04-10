@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                Toast.makeText(LoginActivity.this, "Login is successful!", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
                                 finish();
                             }else {
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void initView(){
+        public void initView(){
         editEmail = findViewById(R.id.edit_email);
         editPassword = findViewById(R.id.edit_password);
         btnLogin = findViewById(R.id.btnLogin);

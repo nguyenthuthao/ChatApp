@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.thaont.chatapp.adapter.MessageAdapter;
 import com.thaont.chatapp.model.Chat;
 import com.thaont.chatapp.model.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +40,6 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser fUser;
     DatabaseReference reference;
     Intent intent;
-
     MessageAdapter messageAdapter;
     List<Chat> mChat;
     RecyclerView recyclerView;
@@ -52,14 +49,11 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         initView();
-
         try {
             toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         } catch (Exception e) {
-            System.out.print("Warning: Some Other exception.");
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,17 +61,16 @@ public class MessageActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Write Message
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         intent = getIntent();
         final String userID = intent.getStringExtra("userID");
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +83,7 @@ public class MessageActivity extends AppCompatActivity {
                 txtSend.setText("");
             }
         });
-
+        //To read data at a path and listen for changes.
         reference = FirebaseDatabase.getInstance().getReference("User").child(userID);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +95,6 @@ public class MessageActivity extends AppCompatActivity {
                 } else {
                     Glide.with(MessageActivity.this).load(user.getImageURL()).into(profileImage);
                 }
-
                 readMessage(fUser.getUid(), userID, user.getImageURL());
             }
 
@@ -120,7 +112,6 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-
         reference.child("Chats").push().setValue(hashMap);
     }
 
@@ -147,6 +138,25 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void status(String status){
+        reference = FirebaseDatabase.getInstance().getReference("User").child(fUser.getUid());
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("status", status);
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 
         public void initView(){

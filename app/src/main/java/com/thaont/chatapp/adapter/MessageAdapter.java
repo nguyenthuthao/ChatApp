@@ -1,7 +1,6 @@
 package com.thaont.chatapp.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,10 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.thaont.chatapp.MessageActivity;
 import com.thaont.chatapp.R;
 import com.thaont.chatapp.model.Chat;
-import com.thaont.chatapp.model.User;
 
 import java.util.List;
 

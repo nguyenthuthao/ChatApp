@@ -33,6 +33,7 @@
     <string name="text_user">Username</string>
     <string name="text_bottom">Type a message... </string>
     <string name="alert_sendMessage">You can not send empty message.</string>
+    <string name="text_profile">Profile</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="dummy_button">Dummy Button</string>
