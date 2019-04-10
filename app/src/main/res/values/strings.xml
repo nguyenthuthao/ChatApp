@@ -30,6 +30,7 @@
     <string name="Logout">LogOut</string>
     <string name="title1">Chats</string>
     <string name="title2">Users</string>
+    <string name="title3">Profile</string>
     <string name="text_user">Username</string>
     <string name="text_bottom">Type a message... </string>
     <string name="alert_sendMessage">You can not send empty message.</string>

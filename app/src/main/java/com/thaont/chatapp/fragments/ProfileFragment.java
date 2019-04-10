@@ -17,16 +17,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.thaont.chatapp.R;
-import com.thaont.chatapp.model.Chat;
 import com.thaont.chatapp.model.User;
-
-import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ProfileFragment extends Fragment {
-    private CircleImageView profileImage;
+    private CircleImageView image_profile;
     private TextView username;
     FirebaseUser fUser;
     DatabaseReference reference;
@@ -38,7 +34,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        profileImage = view.findViewById(R.id.profile_image);
+        image_profile = view.findViewById(R.id.profile_image);
         username = view.findViewById(R.id.username);
         fUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -51,9 +47,9 @@ public class ProfileFragment extends Fragment {
                 User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURL().equals("default")){
-                    profileImage.setImageResource(R.mipmap.ic_launcher);
+                    image_profile.setImageResource(R.mipmap.ic_launcher);
                 }else {
-                    Glide.with(getContext()).load(user.getImageURL()).into(profileImage);
+                    Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
                 }
             }
 
